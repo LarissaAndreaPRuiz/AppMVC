@@ -1,0 +1,31 @@
+﻿@model AppMVC.Models.Endereco
+
+@{
+    ViewData["Title"] = "Cadastro de Endereço";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form method="post" class="mt-4">
+    <div class="form-group">
+        <label for="EnderecoPessoa">Endereço</label>
+        <input type="text" id="EnderecoPessoa" name="EnderecoPessoa" class="form-control" value="@Model.EnderecoPessoa" required />
+    </div>
+    <div class="form-group">
+        <label for="CEP">CEP</label>
+        <input type="text" id="CEP" name="CEP" class="form-control" value="@Model.CEP" required />
+    </div>
+    <div class="form-group">
+        <label for="Cidade">Cidade</label>
+        <input type="text" id="Cidade" name="Cidade" class="form-control" value="@Model.Cidade" required />
+    </div>
+    <div class="form-group">
+        <label for="Estado">Estado</label>
+        <input type="text" id="Estado" name="Estado" class="form-control" value="@Model.Estado" required />
+    </div>
+
+    <!-- Campo oculto para enviar o ID da pessoa -->
+    <input type="hidden" name="pessoaId" value="@Model.PessoaId" />
+
+    <button type="submit" class="btn btn-success mt-3">Salvar</button>
+</form>
