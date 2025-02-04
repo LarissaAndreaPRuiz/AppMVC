@@ -1,0 +1,64 @@
+﻿@model AppMVC.Models.Pessoa
+
+@{
+    ViewData["Title"] = "Editar Pessoa";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form method="post" asp-action="Editar">
+    <input type="hidden" name="Id" value="@Model.Id" /> <!-- Garante que o ID seja enviado -->
+
+    <div class="form-group">
+        <label for="Nome">Nome</label>
+        <input type="text" id="Nome" name="Nome" class="form-control" value="@Model.Nome" required />
+    </div>
+
+    <div class="form-group">
+        <label for="Telefone">Telefone</label>
+        <input type="text" id="Telefone" name="Telefone" class="form-control" value="@Model.Telefone" required />
+    </div>
+
+    <div class="form-group">
+        <label for="CPF">CPF</label>
+        <input type="text" id="CPF" name="CPF" class="form-control" value="@Model.CPF" required />
+    </div>
+
+    <button type="submit" class="btn btn-success mt-3">Salvar</button>
+</form>
+
+<h3 class="mt-4">Endereços</h3>
+<a asp-controller="Enderecos" asp-action="Cadastro" asp-route-id="@Model.Id" class="btn btn-primary">+ Endereço</a>
+
+<table class="table mt-4">
+    <thead>
+        <tr>
+            <th>Endereço</th>
+            <th>CEP</th>
+            <th>Cidade</th>
+            <th>Estado</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var endereco in ViewBag.Enderecos)
+        {
+            <tr>
+                <td>@endereco.EnderecoPessoa</td>
+                <td>@endereco.CEP</td>
+                <td>@endereco.Cidade</td>
+                <td>@endereco.Estado</td>
+
+                <td>
+                    <a href="@Url.Action("Editar", "Enderecos", new { id = endereco.Id })" class="btn btn-info">Editar</a>
+
+                    <form action="/Enderecos/ExcluirEndereco" method="post" style="display:inline;">
+                        <input type="hidden" name="enderecoId" value="@endereco.Id" />
+                        <input type="hidden" name="pessoaId" value="@Model.Id" />
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja excluir este endereço?')">Excluir</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
